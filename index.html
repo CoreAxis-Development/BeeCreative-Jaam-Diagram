@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enhanced Futuristic Platform (Abstract Central Art)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-pzw1tQ/SZ+bwz69BZbywF6Q0fvqVqOxlDWkE0yOXu1O3eRmgU8GzPQkG9RXZx0xvD1KnQG4D1msVdSX9PR5qIg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset default margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Container for everything */
+        .platform-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: transparent;
+        }
+
+        /* Subtle futuristic background graphic */
+        .futuristic-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSIxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTQwMHMxNDAgMTAwIDE0MCAxMDB2LTIwMCIgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6cmdiKDI1NSwgMjU1LCAyNTUpOyIgLz48cGF0aCBkPSJNMTQwMCAwdjEwMDBzLTUwMCAxMDAtNTAgMTAwdjEwMDAiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOnJnYigxODAsIDE4MCwgMTgwKTsiIC8+PC9zdmc=')
+            no-repeat center center;
+            background-size: cover;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Center abstract art */
+        .center-platform {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15vw;
+            height: 15vw;
+            max-width: 300px;
+            max-height: 300px;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            cursor: pointer;
+            animation: centerPulse 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        @keyframes centerPulse {
+            0%   { transform: translate(-50%, -50%) scale(1); }
+            50%  { transform: translate(-50%, -50%) scale(1.05); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Platform list (hover info) with smooth slide-in */
+        .platform-list {
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            transform: translate(-20px, -50%);
+            background: rgba(168, 85, 247, 0.8);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            white-space: nowrap;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            pointer-events: auto;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 6;
+        }
+        .center-platform:hover .platform-list {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, -50%);
+        }
+
+        /* Capability tiles */
+        .capability {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            z-index: 4;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        /* Icon container */
+        .capability .icon-container {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .capability .icon-container i {
+            color: #fff;
+            font-size: 20px;
+        }
+
+        /* Text container with increased padding and fully rounded corners */
+        .capability .text-container {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 12px 24px;
+            border-radius: 9999px;
+            color: #fff;
+            font-size: 0.95em;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+            transition: background 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
+        }
+
+        .capability:hover {
+            transform: scale(1.1);
+            z-index: 6;
+        }
+        .capability:hover .icon-container {
+            background: rgba(59, 130, 246, 0.3);
+            transform: scale(1.1);
+        }
+        .capability:hover .text-container {
+            background: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Connection “vector” lines from center to each tile */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
+            transform-origin: left center;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .connection-line::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 6px solid rgba(59, 130, 246, 0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .platform-list { transform: translate(-20px, -50%); }
+            .center-platform {
+                width: 15vw;
+                height: 15vw;
+                max-width: 250px;
+                max-height: 250px;
+            }
+            .capability .icon-container {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+                margin-right: 8px;
+            }
+            .capability .text-container {
+                padding: 10px 18px;
+            }
+        }
+        @media (max-width: 480px) {
+            .capability .icon-container {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+                margin-right: 6px;
+            }
+            .platform-list { transform: translate(-20px, -50%); }
+            .center-platform {
+                width: 15vw;
+                height: 15vw;
+                max-width: 200px;
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="platform-container">
+    <!-- Subtle futuristic background graphic -->
+    <div class="futuristic-background"></div>
+
+    <div class="center-platform">
+        <!-- Central image remains unchanged -->
+        <img class="center-image"
+             src="https://newweb.jaamautomation.com/wp-content/uploads/2025/01/platforms-laptop.webp"
+             alt="Center Platform"
+             style="max-width: 100%; max-height: 100%;" />
+        <!-- Hover content (platform list) with slide-in animation -->
+        <div class="platform-list">
+            Power Platform<br>
+            Nintex K2<br>
+            Nintex Automation Cloud
+        </div>
+    </div>
+
+    <!-- Capability tiles (8 items) -->
+    <div class="capability" id="cap1">
+        <div class="icon-container">
+            <i class="fas fa-route"></i>
+        </div>
+        <div class="text-container">Workflow Routing</div>
+    </div>
+
+    <div class="capability" id="cap2">
+        <div class="icon-container">
+            <i class="fas fa-sync-alt"></i>
+        </div>
+        <div class="text-container">Triage &amp; Trigger Workflows</div>
+    </div>
+
+    <div class="capability" id="cap3">
+        <div class="icon-container">
+            <i class="fas fa-balance-scale"></i>
+        </div>
+        <div class="text-container">Decision Support</div>
+    </div>
+
+    <div class="capability" id="cap4">
+        <div class="icon-container">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="text-container">Content Generation</div>
+    </div>
+
+    <div class="capability" id="cap5">
+        <div class="icon-container">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="text-container">Client Correspondence</div>
+    </div>
+
+    <div class="capability" id="cap6">
+        <div class="icon-container">
+            <i class="fas fa-expand-arrows-alt"></i>
+        </div>
+        <div class="text-container">Extend Automation Capabilities</div>
+    </div>
+
+    <div class="capability" id="cap8">
+        <div class="icon-container">
+            <i class="fas fa-tasks"></i>
+        </div>
+        <div class="text-container">Task Allocation</div>
+    </div>
+
+    <div class="capability" id="cap9">
+        <div class="icon-container">
+            <i class="fas fa-clipboard-check"></i>
+        </div>
+        <div class="text-container">Automate Existing Tasks</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.platform-container');
+        const capabilities = document.querySelectorAll('.capability');
+        const connectionLines = [];
+        const count = capabilities.length;
+
+        // Create a connection line for each cell
+        capabilities.forEach(() => {
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            container.appendChild(line);
+            connectionLines.push(line);
+        });
+
+        // Global angular velocity (radians per millisecond)
+        // (baseline speed; each tile will have a factor applied)
+        const angularVelocity = 0.0002;
+        // Capture the start time
+        const startTime = performance.now();
+
+        // For each capability, set its base angle plus random offsets
+        capabilities.forEach((cap, index) => {
+            cap._baseAngle = index * (2 * Math.PI / count);
+
+            // Slight orbit and speed variation with smaller range
+            cap._radiusXFactor = 1 + (Math.random() * 0.1 - 0.05); // ±5%
+            cap._radiusYFactor = 1 + (Math.random() * 0.1 - 0.05); // ±5%
+            cap._speedFactor   = 1 + (Math.random() * 0.1 - 0.05); // ±5%
+
+            // Initialize pause tracking
+            cap._totalPausedTime = 0;
+            cap._pauseStart = null;
+            cap._isPaused = false;
+            cap._frozenTime = 0; // Effective time frozen when paused
+
+            // On mouseenter, freeze its effective time
+            cap.addEventListener('mouseenter', () => {
+                if (!cap._isPaused) {
+                    cap._isPaused = true;
+                    const globalTime = performance.now() - startTime;
+                    cap._frozenTime = globalTime - cap._totalPausedTime;
+                    cap._pauseStart = globalTime;
+                }
+            });
+            // On mouseleave, update total paused time so that its effective time resumes smoothly
+            cap.addEventListener('mouseleave', () => {
+                if (cap._isPaused) {
+                    const globalTime = performance.now() - startTime;
+                    cap._totalPausedTime += (globalTime - cap._pauseStart);
+                    cap._pauseStart = null;
+                    cap._isPaused = false;
+                }
+            });
+        });
+
+        let lastTime = performance.now();
+        function animate() {
+            const now = performance.now();
+            const dt = now - lastTime;
+            lastTime = now;
+
+            // Global time since start
+            const globalTime = now - startTime;
+
+            // Center of the container
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Reduced baseline elliptical orbit radii
+            const radiusX = rect.width * 0.35;  // 35% of width
+            const radiusY = rect.height * 0.25; // 25% of height
+
+            capabilities.forEach((cap, index) => {
+                // Compute effective time for this cell
+                const effectiveTime = cap._isPaused ? cap._frozenTime : (globalTime - cap._totalPausedTime);
+
+                // Current angle with a slight speed variation
+                const angle = cap._baseAngle + (angularVelocity * cap._speedFactor * effectiveTime);
+
+                // Compute the cell's position along its subtly varied ellipse
+                const posX = centerX + (radiusX * cap._radiusXFactor) * Math.cos(angle);
+                const posY = centerY + (radiusY * cap._radiusYFactor) * Math.sin(angle);
+
+                cap.style.left = posX + 'px';
+                cap.style.top = posY + 'px';
+                cap.style.transform = 'translate(-50%, -50%)';
+
+                // Update the connection line
+                const dx = posX - centerX;
+                const dy = posY - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const angleDeg = Math.atan2(dy, dx) * (180 / Math.PI);
+
+                const line = connectionLines[index];
+                line.style.width = distance + 'px';
+                line.style.left = centerX + 'px';
+                line.style.top = centerY + 'px';
+                line.style.transform = `rotate(${angleDeg}deg)`;
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+</script>
+</body>
+</html>
